@@ -21,7 +21,24 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>nexus-heynowio-releases</id>
+            <name>nexus-heynowio-releases</name>
+            <url>https://nexus-heynowio.rhcloud.com/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>nexus-heynowio-snapshots</id>
+            <name>nexus-heynowio-snapshots</name>
+            <url>https://nexus-heynowio.rhcloud.com/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
     <dependencies>
+        <dependency>
+            <groupId>io.heynow</groupId>
+            <artifactId>stream-manager-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter</artifactId>
@@ -47,9 +64,25 @@
             <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
