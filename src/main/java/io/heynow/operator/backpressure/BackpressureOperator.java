@@ -22,7 +22,7 @@ public class BackpressureOperator {
 
     @Filter(inputChannel = Sink.INPUT, outputChannel = INTERNAL)
     public boolean noteBackpressure(Note note) {
-        return backpressureProvider.getHandler(note.getProcessingModel().getStreamId()).backpressure();
+        return backpressureProvider.getHandler(note.getProcessingModel().getCurrent().getId()).backpressure();
     }
 
     @Router(inputChannel = INTERNAL)
