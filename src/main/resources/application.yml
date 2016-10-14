@@ -1,1 +1,4 @@
-stream-manager.url: http://localhost:666
+spring:
+  application.name: backpressure-operator
+
+logging.file:       application.log

@@ -12,15 +12,15 @@ import java.util.concurrent.TimeUnit;
 public class BackpressureProvider {
 
     private BackpressureConfigService configService;
-    private LoadingCache<String, BackpressureHandler> handlersCache;
+    private LoadingCache<Long, BackpressureHandler> handlersCache;
 
     @Autowired
     public BackpressureProvider(BackpressureConfigService configService) {
         this.configService = configService;
-        CacheLoader<String, BackpressureHandler> cacheLoader = new CacheLoader<String, BackpressureHandler>() {
+        CacheLoader<Long, BackpressureHandler> cacheLoader = new CacheLoader<Long, BackpressureHandler>() {
             @Override
-            public BackpressureHandler load(String eventType) throws Exception {
-                return BackpressureFactory.createFromConfig(configService.getConfig(eventType));
+            public BackpressureHandler load(Long streamId) throws Exception {
+                return BackpressureFactory.createFromConfig(configService.getConfig(streamId));
             }
         };
 
@@ -29,7 +29,7 @@ public class BackpressureProvider {
                 .build(cacheLoader);
     }
 
-    public BackpressureHandler getHandler(String eventType) {
-        return handlersCache.getUnchecked(eventType);
+    public BackpressureHandler getHandler(Long streamId) {
+        return handlersCache.getUnchecked(streamId);
     }
 }

@@ -15,11 +15,33 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <scm>
+        <url>https://github.com/heynow-io/backpressure-operator.git</url>
+        <connection>scm:git:git@github.com:heynow-io/backpressure-operator.git</connection>
+        <developerConnection>scm:git:git@github.com:heynow-io/backpressure-operator.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-heynowio-snapshots</id>
+            <name>nexus-heynowio-snapshots</name>
+            <url>https://nexus-heynowio.rhcloud.com/content/repositories/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-heynowio-releases</id>
+            <name>nexus-heynowio-rleases</name>
+            <url>https://nexus-heynowio.rhcloud.com/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>
@@ -36,6 +58,11 @@
     <dependencies>
         <dependency>
             <groupId>io.heynow</groupId>
+            <artifactId>stream-manager-client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.heynow</groupId>
             <artifactId>stream-manager-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -44,8 +71,16 @@
             <artifactId>spring-cloud-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
