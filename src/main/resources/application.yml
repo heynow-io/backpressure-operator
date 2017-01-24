@@ -2,3 +2,16 @@ spring:
   application.name: backpressure-operator
 
 logging.file:       application.log
+
+spring.jpa.database: POSTGRESQL
+spring.jpa.hibernate.ddl-auto: update
+spring.database.driverClassName: org.postgresql.Driver
+spring.datasource.platform: postgres
+spring.datasource.url: jdbc:postgresql://localhost:5432
+spring.datasource.username: postgres
+spring.datasource.password: 1234
+
+
+spring.cloud.stream.bindings.input.destination: inputTest
+spring.cloud.stream.bindings.out.destination: inner
+spring.cloud.stream.bindings.in.destination: inner

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-@Service
+
 public class BackpressureConfigServiceImpl implements BackpressureConfigService {
 
     private final StreamManagerClient streamManagerClient;
 
-    @Autowired
+
     public BackpressureConfigServiceImpl(StreamManagerClient streamManagerClient) {
         this.streamManagerClient = streamManagerClient;
     }

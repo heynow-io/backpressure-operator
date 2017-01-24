@@ -1,31 +1,33 @@
 package io.heynow.operator.backpressure;
 
 import io.heynow.stream.manager.client.model.Note;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.integration.annotation.Filter;
+import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.integration.annotation.Router;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.MessageChannel;
 
-@EnableBinding(Sink.class)
+@Slf4j
+@EnableBinding(BackpressureQueues.class)
 public class BackpressureOperator {
-    private static final String INTERNAL = "internal";
 
-    private Sink sink;
-    private BackpressureProvider backpressureProvider;
+    private MessageChannel innerInput;
 
     @Autowired
-    public BackpressureOperator(Sink sink, BackpressureProvider backpressureProvider) {
-        this.sink = sink;
-        this.backpressureProvider = backpressureProvider;
+    public BackpressureOperator( @Qualifier(BackpressureQueues.INNER_INPUT) MessageChannel innerInput) {
+        this.innerInput = innerInput;
     }
 
-    @Filter(inputChannel = Sink.INPUT, outputChannel = INTERNAL)
-    public boolean noteBackpressure(Note note) {
-        return backpressureProvider.getHandler(note.getProcessingModel().getCurrent().getId()).backpressure();
+    @StreamListener(BackpressureQueues.INPUT)
+    public void handleNote(Note note) {
+        log.info(note.toString());
+        innerInput.send(MessageBuilder.withPayload(note).build());
     }
 
-    @Router(inputChannel = INTERNAL)
+    @Router(inputChannel = BackpressureQueues.INNER_OUTPUT)
     public String router(Note note) {
         return note.proceed().getName();
     }

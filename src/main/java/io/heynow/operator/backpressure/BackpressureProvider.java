@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-@Component
+
 public class BackpressureProvider {
 
     private BackpressureConfigService configService;
     private LoadingCache<Long, BackpressureHandler> handlersCache;
 
-    @Autowired
+
     public BackpressureProvider(BackpressureConfigService configService) {
         this.configService = configService;
         CacheLoader<Long, BackpressureHandler> cacheLoader = new CacheLoader<Long, BackpressureHandler>() {
